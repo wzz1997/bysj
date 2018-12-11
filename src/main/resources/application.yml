@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     name: data-source
-    url: jdbc:mysql://127.0.0.1:3306/zhuoli?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    url: jdbc:mysql://193363t4s1.51mypc.cn:49361/zhuoli?serverTimezone=GMT%2B8&characterEncoding=utf-8
     username: root
     password: wzz1997
     # ʹ��druid����Դ
