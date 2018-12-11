@@ -1,8 +1,8 @@
 package com.wzz.zuolibackend.controller;
 
 import com.wzz.zuolibackend.common.model.Result;
-import com.wzz.zuolibackend.pojo.User;
-import com.wzz.zuolibackend.service.UserService;
+import com.wzz.zuolibackend.pojo.Admin;
+import com.wzz.zuolibackend.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "SysUserLoginController" ,tags = "卓立物流信息服务")
 public class SysUserLoginController {
     @Autowired
-    private UserService userService;
+    private AdminService adminService;
 
     @PostMapping("/login")
     @ApiOperation(value = "新增管理人员", notes = "所需字段：user")
-    public Result sysLogin(@RequestBody User user) {
+    public Result sysLogin(@RequestBody Admin admin) {
         BCryptPasswordEncoder bCryptPasswordEncoder= new BCryptPasswordEncoder();
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Integer integer = userService.addUser(user);
+        admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        Integer integer = adminService.insertAdmin(admin);
         if (integer > 0) {
             return Result.ok("新增成功");
         }
