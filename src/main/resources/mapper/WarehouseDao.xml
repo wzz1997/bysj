@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzz.zuolibackend.dao.WarehouseDao">
+  <resultMap id="BaseResultMap" type="com.wzz.zuolibackend.pojo.Warehouse">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="warehouse" jdbcType="VARCHAR" property="warehouse" />
+    <result column="warehouse_count" jdbcType="INTEGER" property="warehouse_count" />
+    <result column="admin_id" jdbcType="INTEGER" property="admin_id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, warehouse, warehouse_count, admin_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from warehouse
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wzz.zuolibackend.pojo.Warehouse" useGeneratedKeys="true">
+    insert into warehouse (warehouse, warehouse_count, admin_id
+      )
+    values (#{warehouse,jdbcType=VARCHAR}, #{warehouse_count,jdbcType=INTEGER}, #{admin_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wzz.zuolibackend.pojo.Warehouse" useGeneratedKeys="true">
+    insert into warehouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehouse != null">
+        warehouse,
+      </if>
+      <if test="warehouse_count != null">
+        warehouse_count,
+      </if>
+      <if test="admin_id != null">
+        admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse_count != null">
+        #{warehouse_count,jdbcType=INTEGER},
+      </if>
+      <if test="admin_id != null">
+        #{admin_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wzz.zuolibackend.pojo.Warehouse">
+    update warehouse
+    <set>
+      <if test="warehouse != null">
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse_count != null">
+        warehouse_count = #{warehouse_count,jdbcType=INTEGER},
+      </if>
+      <if test="admin_id != null">
+        admin_id = #{admin_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzz.zuolibackend.pojo.Warehouse">
+    update warehouse
+    set warehouse = #{warehouse,jdbcType=VARCHAR},
+      warehouse_count = #{warehouse_count,jdbcType=INTEGER},
+      admin_id = #{admin_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

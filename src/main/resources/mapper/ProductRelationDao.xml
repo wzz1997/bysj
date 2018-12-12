@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzz.zuolibackend.dao.ProductRelationDao">
+  <resultMap id="BaseResultMap" type="com.wzz.zuolibackend.pojo.ProductRelation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="warehouse_id" jdbcType="INTEGER" property="warehouse_id" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="u_time" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="c_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, warehouse_id, product_id, `count`, u_time, c_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_relation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product_relation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wzz.zuolibackend.pojo.ProductRelation" useGeneratedKeys="true">
+    insert into product_relation (warehouse_id, product_id, `count`, 
+      u_time, c_time)
+    values (#{warehouse_id,jdbcType=INTEGER}, #{product_id,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, 
+      #{u_time,jdbcType=TIMESTAMP}, #{c_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wzz.zuolibackend.pojo.ProductRelation" useGeneratedKeys="true">
+    insert into product_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="warehouse_id != null">
+        warehouse_id,
+      </if>
+      <if test="product_id != null">
+        product_id,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="u_time != null">
+        u_time,
+      </if>
+      <if test="c_time != null">
+        c_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="warehouse_id != null">
+        #{warehouse_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_id != null">
+        #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="u_time != null">
+        #{u_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="c_time != null">
+        #{c_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wzz.zuolibackend.pojo.ProductRelation">
+    update product_relation
+    <set>
+      <if test="warehouse_id != null">
+        warehouse_id = #{warehouse_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="u_time != null">
+        u_time = #{u_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="c_time != null">
+        c_time = #{c_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzz.zuolibackend.pojo.ProductRelation">
+    update product_relation
+    set warehouse_id = #{warehouse_id,jdbcType=INTEGER},
+      product_id = #{product_id,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=INTEGER},
+      u_time = #{u_time,jdbcType=TIMESTAMP},
+      c_time = #{c_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

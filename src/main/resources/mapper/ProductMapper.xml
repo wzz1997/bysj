@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzz.zuolibackend.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.wzz.zuolibackend.pojo.Product">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="product_number" jdbcType="VARCHAR" property="product_number" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="warehouse_id" jdbcType="INTEGER" property="warehouse_id" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="u_time" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="c_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, product, product_number, `count`, warehouse_id, u_time, c_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wzz.zuolibackend.pojo.Product" useGeneratedKeys="true">
+    insert into product (product, product_number, `count`, 
+      warehouse_id, u_time, c_time
+      )
+    values (#{product,jdbcType=VARCHAR}, #{product_number,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{warehouse_id,jdbcType=INTEGER}, #{u_time,jdbcType=TIMESTAMP}, #{c_time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wzz.zuolibackend.pojo.Product" useGeneratedKeys="true">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="product != null">
+        product,
+      </if>
+      <if test="product_number != null">
+        product_number,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="warehouse_id != null">
+        warehouse_id,
+      </if>
+      <if test="u_time != null">
+        u_time,
+      </if>
+      <if test="c_time != null">
+        c_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="product_number != null">
+        #{product_number,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="warehouse_id != null">
+        #{warehouse_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_time != null">
+        #{u_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="c_time != null">
+        #{c_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wzz.zuolibackend.pojo.Product">
+    update product
+    <set>
+      <if test="product != null">
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="product_number != null">
+        product_number = #{product_number,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="warehouse_id != null">
+        warehouse_id = #{warehouse_id,jdbcType=INTEGER},
+      </if>
+      <if test="u_time != null">
+        u_time = #{u_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="c_time != null">
+        c_time = #{c_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzz.zuolibackend.pojo.Product">
+    update product
+    set product = #{product,jdbcType=VARCHAR},
+      product_number = #{product_number,jdbcType=VARCHAR},
+      `count` = #{count,jdbcType=INTEGER},
+      warehouse_id = #{warehouse_id,jdbcType=INTEGER},
+      u_time = #{u_time,jdbcType=TIMESTAMP},
+      c_time = #{c_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
