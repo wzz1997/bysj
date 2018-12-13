@@ -1,6 +1,8 @@
 package com.wzz.zuolibackend.controller;
 
+import com.wzz.zuolibackend.common.model.ErrorConstant;
 import com.wzz.zuolibackend.common.model.Result;
+import com.wzz.zuolibackend.dao.dto.LoginDTO;
 import com.wzz.zuolibackend.pojo.Admin;
 import com.wzz.zuolibackend.service.AdminService;
 import io.swagger.annotations.Api;
@@ -25,9 +27,10 @@ public class SysUserLoginController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/login")
+
+    @PostMapping("/admin")
     @ApiOperation(value = "新增管理人员", notes = "所需字段：user")
-    public Result sysLogin(@RequestBody Admin admin) {
+    public Result addAdmin(@RequestBody Admin admin) {
         BCryptPasswordEncoder bCryptPasswordEncoder= new BCryptPasswordEncoder();
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
         Integer integer = adminService.insertAdmin(admin);
@@ -37,10 +40,23 @@ public class SysUserLoginController {
         return Result.error("新增失败");
     }
 
-    @GetMapping("/hello")
-    public Result hello(){
-        return Result.ok("hello world");
+    @PostMapping("/login")
+    @ApiOperation(value = "登录接口", notes = "")
+    public Result login(@RequestBody LoginDTO loginDTO){
+        Admin adminByAccount = adminService.getAdminByAccount(loginDTO.getAccount());
+        if (adminByAccount==null){
+            Result.error("用户不存在");
+        }
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        if(!bCryptPasswordEncoder.matches(adminByAccount.getPassword(),loginDTO.getPassword())) {
+            return Result.error(ErrorConstant.ERROR_WRONG_PASSWORD, ErrorConstant.ERROR_WRONG_PASSWORD_MSG);
+        }
+        adminByAccount.setPassword(null);
+        return Result.ok(adminByAccount);
     }
+
+
+
 
 
 

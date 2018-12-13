@@ -54,6 +54,10 @@ public interface AdminService {
   PageInfo<Admin> getAllAdmin();
 
 
+  Admin getAdminByAccount(String account);
+
+
+
 
 
 }

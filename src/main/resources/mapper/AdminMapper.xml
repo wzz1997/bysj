@@ -26,7 +26,14 @@
     WHERE
     status=1
   </select>
-  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getAdminByAccount" resultType="com.wzz.zuolibackend.pojo.Admin">
+     SELECT *
+     FROM
+     admin
+     WHERE
+     account=#{account}
+    </select>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     UPDATE
     admin
     SET

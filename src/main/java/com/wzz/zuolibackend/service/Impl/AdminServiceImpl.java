@@ -73,6 +73,12 @@ private AdminMapper adminMapper;
      */
     @Override
     public PageInfo<Admin> getAllAdmin() {
+
         return new PageInfo<>(adminMapper.getAllAdmin());
+    }
+
+    @Override
+    public Admin getAdminByAccount(String account) {
+        return adminMapper.getAdminByAccount(account);
     }
 }
