@@ -1,6 +1,7 @@
 package com.wzz.zuolibackend.service;
 
 import com.github.pagehelper.PageInfo;
+import com.wzz.zuolibackend.common.model.PageInfoDTO;
 import com.wzz.zuolibackend.pojo.Admin;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public interface AdminService {
      * @return
      */
 
-  PageInfo<Admin> getAllAdmin();
+  PageInfo<Admin> getAllAdmin(PageInfoDTO pageInfoDTO);
 
 
   Admin getAdminByAccount(String account);

@@ -1,6 +1,8 @@
 package com.wzz.zuolibackend.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.wzz.zuolibackend.common.model.ErrorConstant;
+import com.wzz.zuolibackend.common.model.PageInfoDTO;
 import com.wzz.zuolibackend.common.model.Result;
 import com.wzz.zuolibackend.dao.dto.LoginDTO;
 import com.wzz.zuolibackend.pojo.Admin;
@@ -41,7 +43,7 @@ public class SysUserLoginController {
     }
 
     @PostMapping("/login")
-    @ApiOperation(value = "登录接口", notes = "")
+    @ApiOperation(value = "登录接口", notes = "账号，密码")
     public Result login(@RequestBody LoginDTO loginDTO){
         Admin adminByAccount = adminService.getAdminByAccount(loginDTO.getAccount());
         if (adminByAccount==null){
@@ -54,6 +56,32 @@ public class SysUserLoginController {
         adminByAccount.setPassword(null);
         return Result.ok(adminByAccount);
     }
+
+    @DeleteMapping("/admin")
+    @ApiOperation(value = "删除人员",notes = "id")
+    public Result deleteAdmin(@RequestParam("id")Integer id){
+        Integer integer = adminService.deleteAdmin(id);
+        if (integer>0){
+            return Result.ok("删除成功");
+        }
+         return Result.error("删除失败");
+    }
+
+    @PutMapping("/admin")
+    @ApiOperation(value = "更新人员", notes = "admin")
+    public Result updateAdmin(@RequestBody Admin admin){
+        Integer integer = adminService.updateAdmin(admin);
+        if (integer>0){
+            return Result.ok("更新成功");
+        }
+    return Result.error("更新失败");
+    }
+
+   @PostMapping("/adminPage")
+    @ApiOperation(value = "获取管理人员分页",notes = "")
+    public Result<PageInfo<Admin>> getAdminList(@RequestBody PageInfoDTO pageInfoDTO){
+      return Result.ok(adminService.getAllAdmin(pageInfoDTO));
+   }
 
 
 

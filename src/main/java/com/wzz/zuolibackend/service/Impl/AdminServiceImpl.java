@@ -2,6 +2,7 @@ package com.wzz.zuolibackend.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wzz.zuolibackend.common.model.PageInfoDTO;
 import com.wzz.zuolibackend.dao.AdminMapper;
 import com.wzz.zuolibackend.pojo.Admin;
 import com.wzz.zuolibackend.service.AdminService;
@@ -72,8 +73,8 @@ private AdminMapper adminMapper;
      * @return
      */
     @Override
-    public PageInfo<Admin> getAllAdmin() {
-
+    public PageInfo<Admin> getAllAdmin(PageInfoDTO pageInfoDTO) {
+        PageHelper.startPage(pageInfoDTO.getPageNum(),pageInfoDTO.getPageSize());
         return new PageInfo<>(adminMapper.getAllAdmin());
     }
 
