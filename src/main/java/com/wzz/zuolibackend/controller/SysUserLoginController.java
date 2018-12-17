@@ -48,7 +48,7 @@ public class SysUserLoginController {
             Result.error("用户不存在");
         }
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        if(!bCryptPasswordEncoder.matches(adminByAccount.getPassword(),loginDTO.getPassword())) {
+        if(!bCryptPasswordEncoder.matches(loginDTO.getPassword(),adminByAccount.getPassword())) {
             return Result.error(ErrorConstant.ERROR_WRONG_PASSWORD, ErrorConstant.ERROR_WRONG_PASSWORD_MSG);
         }
         adminByAccount.setPassword(null);
